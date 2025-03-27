@@ -9,15 +9,15 @@ body {
     margin: 0;
 }
 
-/* Contêiner principal */
+/* Contêiner principal - Tela cheia */
 .chat-container {
-    width: 400px;
-    height: 500px;
+    width: 100vw;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     background: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
+    border-radius: 0;
     overflow: hidden;
 }
 
@@ -29,26 +29,37 @@ body {
     font-size: 18px;
     text-align: center;
     font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 20px;
 }
 
 /* Caixa de mensagens */
 #chat-box {
     flex: 1;
-    padding: 10px;
+    padding: 15px;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
     background: #ece5dd;
+    scrollbar-width: thin;
+    scrollbar-color: #ccc transparent;
 }
 
 /* Mensagem enviada */
 .message {
-    max-width: 75%;
-    padding: 8px 12px;
-    margin: 5px;
+    max-width: 60%;
+    padding: 12px 16px;
+    margin: 8px;
     border-radius: 10px;
-    font-size: 14px;
+    font-size: 16px;
     word-wrap: break-word;
+    line-height: 1.4;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
 }
 
 /* Mensagem do usuário (verde, alinhada à direita) */
@@ -66,45 +77,59 @@ body {
 /* Nome do usuário */
 .username {
     font-weight: bold;
-    font-size: 12px;
+    font-size: 14px;
     color: #075e54;
-    display: block;
-    margin-bottom: 3px;
+    margin-bottom: 5px;
 }
 
-/* Caixa de entrada */
+/* Caixa de entrada responsiva */
 .input-container {
     display: flex;
-    padding: 10px;
+    align-items: center;
+    padding: 10px 15px;
     background: #fff;
     border-top: 1px solid #ddd;
 }
 
 input {
     flex: 1;
-    padding: 10px;
+    padding: 12px 15px;
     border: none;
-    border-radius: 20px;
+    border-radius: 25px;
     outline: none;
-    font-size: 14px;
+    font-size: 16px;
+    background: #f0f0f0;
+    transition: all 0.3s ease;
+}
+
+input:focus {
+    background: #fff;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
 
 button {
     margin-left: 10px;
-    padding: 10px;
+    padding: 12px;
     cursor: pointer;
-    background: #25d366;
+    background: #128c7e;
     color: white;
     border: none;
     border-radius: 50%;
-    font-size: 16px;
-    width: 40px;
-    height: 40px;
+    font-size: 20px;
+    width: 50px;
+    height: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
 }
 
 button:hover {
-    background: #1ebe57;
+    background: #075e54;
+    transform: scale(1.1);
+}
+
+button i {
+    font-size: 22px;
 }
