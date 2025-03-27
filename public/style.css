@@ -133,3 +133,53 @@ button:hover {
 button i {
     font-size: 22px;
 }
+
+/* Ajuste na caixa de entrada */
+.input-container {
+    display: flex;
+    padding: 10px;
+    background: #fff;
+    border-top: 1px solid #ddd;
+    align-items: center;
+}
+
+/* Estilizando os botões */
+button {
+    margin-left: 10px;
+    padding: 10px;
+    cursor: pointer;
+    border: none;
+    border-radius: 50%;
+    font-size: 18px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Botão de envio */
+button[onclick="sendMessage()"] {
+    background: #25d366;
+    color: white;
+}
+
+button[onclick="sendMessage()"]:hover {
+    background: #1ebe57;
+}
+
+/* Botão de áudio */
+#record-audio {
+    background: #075e54;
+    color: white;
+}
+
+#record-audio:hover {
+    background: #064c48;
+}
+
+/* Mensagem de áudio */
+.message audio {
+    width: 200px;
+    margin-top: 5px;
+}
