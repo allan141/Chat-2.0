@@ -8,15 +8,8 @@
 </head>
 <body>
 
-    <!-- Tela de login -->
-    <div id="login-container" class="login-container">
-        <h2>Bem-vindo ao Chat</h2>
-        <input type="text" id="username" placeholder="Digite seu nome">
-        <button onclick="enterChat()">Entrar</button>
-    </div>
-
     <!-- Tela do chat -->
-    <div id="chat-container" class="chat-container" style="display: none;">
+    <div id="chat-container" class="chat-container">
         <div class="chat-header">
             <span id="user-display"></span>
         </div>
@@ -27,6 +20,7 @@
         </div>
     </div>
 
+    <script src="/socket.io/socket.io.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
