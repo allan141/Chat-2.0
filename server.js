@@ -1,0 +1,26 @@
+const express = require("express");
+const http = require("http");
+const { Server } = require("socket.io");
+
+const app = express();
+const server = http.createServer(app);
+const io = new Server(server);
+
+app.use(express.static("public"));
+
+io.on("connection", (socket) => {
+    console.log("Novo usuário conectado:", socket.id);
+
+    // Quando o usuário envia uma mensagem
+    socket.on("chatMessage", (msg) => {
+        io.emit("chatMessage", { id: socket.id, message: msg });
+    });
+
+    // Quando o usuário desconecta
+    socket.on("disconnect", () => {
+        console.log("Usuário desconectado:", socket.id);
+    });
+});
+
+const PORT = 3000;
+server.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
