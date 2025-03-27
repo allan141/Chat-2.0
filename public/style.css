@@ -1,142 +1,39 @@
-/* Reset global */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
-}
-
-/* Corpo da página */
-body {
+/* Tela de login */
+.login-container {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    width: 100vw;
-    background: #e5ddd5;
-}
-
-/* Contêiner principal do chat */
-.chat-container {
     width: 100vw;
     height: 100vh;
-    display: flex;
-    flex-direction: column;
-    background: #fff;
-}
-
-/* Cabeçalho do chat */
-.chat-header {
-    background: #075e54;
-    color: white;
-    padding: 15px;
-    font-size: 18px;
-    text-align: center;
-    font-weight: bold;
-}
-
-/* Caixa de mensagens */
-#chat-box {
-    flex: 1;
-    padding: 15px;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
     background: #ece5dd;
 }
 
-/* Mensagem enviada */
-.message {
-    max-width: 75%;
-    padding: 10px 15px;
-    margin: 5px;
-    border-radius: 10px;
-    font-size: 14px;
-    word-wrap: break-word;
-}
-
-/* Mensagem do usuário (verde, à direita) */
-.message.sent {
-    background: #dcf8c6;
-    align-self: flex-end;
-}
-
-/* Mensagem de outros usuários (branca, à esquerda) */
-.message.received {
-    background: white;
-    align-self: flex-start;
-}
-
-/* Nome do usuário */
-.username {
-    font-weight: bold;
-    font-size: 12px;
+.login-container h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
     color: #075e54;
-    display: block;
-    margin-bottom: 3px;
 }
 
-/* Campo de entrada de mensagem */
-.input-container {
-    display: flex;
+.login-container input {
+    width: 80%;
     padding: 10px;
-    background: #fff;
-    border-top: 1px solid #ddd;
-    align-items: center;
-    gap: 10px;
-}
-
-/* Ajuste para o campo de texto */
-input {
-    flex: 1;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 20px;
-    outline: none;
     font-size: 16px;
-    width: 100%;
-    max-width: calc(100% - 60px);
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
 }
 
-/* Ajuste para o botão de envio */
-button {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 18px;
+.login-container button {
     background: #25d366;
     color: white;
+    padding: 10px 20px;
+    font-size: 16px;
     border: none;
+    border-radius: 5px;
     cursor: pointer;
-    flex-shrink: 0;
 }
 
-button:hover {
+.login-container button:hover {
     background: #1ebe57;
-}
-
-/* Responsividade */
-@media (max-width: 600px) {
-    .chat-header {
-        font-size: 16px;
-        padding: 12px;
-    }
-
-    .message {
-        font-size: 13px;
-    }
-
-    input {
-        font-size: 14px;
-        padding: 10px;
-    }
-
-    button {
-        font-size: 16px;
-        width: 40px;
-        height: 40px;
-    }
 }

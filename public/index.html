@@ -1,22 +1,32 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat Estilo WhatsApp</title>
+    <title>Chat Online</title>
     <link rel="stylesheet" href="style.css">
-    <script defer src="/socket.io/socket.io.js"></script>
-    <script defer src="script.js"></script>
 </head>
 <body>
-    <div class="chat-container">
-        <div class="chat-header">Chat Online</div>
+
+    <!-- Tela de login -->
+    <div id="login-container" class="login-container">
+        <h2>Bem-vindo ao Chat</h2>
+        <input type="text" id="username" placeholder="Digite seu nome">
+        <button onclick="enterChat()">Entrar</button>
+    </div>
+
+    <!-- Tela do chat -->
+    <div id="chat-container" class="chat-container" style="display: none;">
+        <div class="chat-header">
+            <span id="user-display"></span>
+        </div>
         <div id="chat-box"></div>
         <div class="input-container">
-            <input type="text" id="message" placeholder="Digite uma mensagem..." />
-            <button onclick="sendMessage()">📩</button>
+            <input type="text" id="message-input" placeholder="Digite sua mensagem...">
+            <button onclick="sendMessage()">➤</button>
         </div>
     </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
