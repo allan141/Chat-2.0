@@ -12,9 +12,10 @@ io.on("connection", (socket) => {
     console.log("Novo usuário conectado:", socket.id);
 
     // Quando o usuário envia uma mensagem
-    socket.on("chatMessage", (msg) => {
-        io.emit("chatMessage", { id: socket.id, message: msg });
+    socket.on("chatMessage", (data) => {
+        io.emit("chatMessage", { username: data.username, message: data.message });
     });
+    
 
     // Quando o usuário desconecta
     socket.on("disconnect", () => {
