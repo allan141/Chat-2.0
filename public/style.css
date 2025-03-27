@@ -1,25 +1,30 @@
-/* Estilização geral */
-body {
+/* Reset geral */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
     font-family: Arial, sans-serif;
+}
+
+/* Estilização geral */
+body, html {
+    width: 100%;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
     background: #e5ddd5;
-    margin: 0;
 }
 
-/* Contêiner principal */
+/* Contêiner principal ocupa toda a tela */
 .chat-container {
     width: 100%;
-    max-width: 600px;
-    height: 90vh;
+    height: 100%;
+    max-width: 100vw;
+    max-height: 100vh;
     display: flex;
     flex-direction: column;
     background: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    overflow: hidden;
 }
 
 /* Cabeçalho do chat */
@@ -32,7 +37,7 @@ body {
     font-weight: bold;
 }
 
-/* Caixa de mensagens */
+/* Caixa de mensagens ocupa todo o espaço disponível */
 #chat-box {
     flex: 1;
     padding: 15px;
@@ -74,20 +79,23 @@ body {
     margin-bottom: 5px;
 }
 
-/* Layout do áudio (estilo anterior) */
+/* Layout do áudio */
 .message audio {
     width: 100%;
     margin-top: 5px;
     border-radius: 5px;
 }
 
-/* Caixa de entrada */
+/* Caixa de entrada fixa no rodapé */
 .input-container {
     display: flex;
     padding: 10px;
     background: #fff;
     border-top: 1px solid #ddd;
     align-items: center;
+    position: sticky;
+    bottom: 0;
+    width: 100%;
 }
 
 /* Input de mensagem */
@@ -119,11 +127,11 @@ button {
 }
 
 /* Ícones dos botões */
-button img {
-    width: 20px;
-    height: 20px;
+button i {
+    font-size: 18px;
 }
 
+/* Hover dos botões */
 button:hover {
     background: #1ebe57;
 }
@@ -135,4 +143,24 @@ button:hover {
 
 #record-btn:hover {
     background: #054c44;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .chat-container {
+        border-radius: 0;
+    }
+
+    .message {
+        font-size: 16px;
+    }
+
+    .chat-header {
+        font-size: 20px;
+        padding: 20px;
+    }
+
+    input {
+        font-size: 16px;
+    }
 }

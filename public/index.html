@@ -11,10 +11,24 @@
 </head>
 <body>
     <div class="chat-container">
-        <div class="chat-header">Chat Online</div>
+        
+        <!-- Cabeçalho do Chat -->
+        <div class="chat-header">
+            <span>Chat Online</span>
+            <button id="dark-mode-toggle" title="Alternar Modo Escuro">
+                <i class="fa-solid fa-moon"></i>
+            </button>
+        </div>
+        
+        <!-- Área de Mensagens -->
         <div id="chat-box"></div>
+        
+        <!-- Indicador de "Digitando..." -->
+        <div id="typing-indicator"></div>
+        
+        <!-- Área de Entrada -->
         <div class="input-container">
-            <input type="text" id="message" placeholder="Digite uma mensagem..." />
+            <input type="text" id="message" placeholder="Digite uma mensagem..." oninput="notifyTyping()" />
             
             <!-- Botão de Envio -->
             <button id="send-btn" onclick="sendMessage()" title="Enviar mensagem">

@@ -7,19 +7,24 @@ if (!username) {
     localStorage.setItem("username", username);
 }
 
-// Captura dos botões e inicialização de variáveis
+// Captura de elementos
 const recordBtn = document.getElementById("record-btn");
 const sendBtn = document.getElementById("send-btn");
+const messageInput = document.getElementById("message");
+const chatBox = document.getElementById("chat-box");
+const typingIndicator = document.getElementById("typing-indicator");
+const darkModeToggle = document.getElementById("dark-mode-toggle");
+
 let mediaRecorder;
 let audioChunks = [];
 let startTime;
 let recordingInterval;
+let typingTimeout;
 
 // Enviar mensagem de texto
 function sendMessage() {
-    const messageInput = document.getElementById("message");
     const message = messageInput.value.trim();
-    
+
     if (message) {
         const messageData = { username, message };
         displayMessage(messageData, true);
@@ -37,7 +42,6 @@ socket.on("chatMessage", (data) => {
 
 // Exibir mensagens corretamente
 function displayMessage(data, isSender) {
-    const chatBox = document.getElementById("chat-box");
     const messageElement = document.createElement("div");
 
     messageElement.classList.add("message", isSender ? "sent" : "received");
@@ -46,10 +50,27 @@ function displayMessage(data, isSender) {
         <span class="username">${data.username}</span>
         <p>${data.message}</p>
     `;
-    
+
     chatBox.appendChild(messageElement);
     chatBox.scrollTop = chatBox.scrollHeight;
 }
+
+// Notificar que o usuário está digitando
+messageInput.addEventListener("input", () => {
+    socket.emit("typing", username);
+    clearTimeout(typingTimeout);
+    typingTimeout = setTimeout(() => socket.emit("stopTyping"), 2000);
+});
+
+// Receber notificação de digitação
+socket.on("typing", (user) => {
+    typingIndicator.innerText = `${user} está digitando...`;
+});
+
+// Remover indicador de digitação quando parar
+socket.on("stopTyping", () => {
+    typingIndicator.innerText = "";
+});
 
 // Iniciar gravação de áudio
 recordBtn.addEventListener("mousedown", async () => {
@@ -74,7 +95,7 @@ recordBtn.addEventListener("mousedown", async () => {
 
             // **Zerar cronômetro e restaurar botão**
             clearInterval(recordingInterval);
-            recordBtn.innerText = "🎤";
+            recordBtn.innerHTML = `<i class="fa-solid fa-microphone"></i>`;
         };
 
         mediaRecorder.start();
@@ -83,7 +104,7 @@ recordBtn.addEventListener("mousedown", async () => {
         // Atualizar tempo de gravação
         recordingInterval = setInterval(() => {
             const elapsedTime = Math.floor((Date.now() - startTime) / 1000);
-            recordBtn.innerText = `🎤 ${elapsedTime}s`;
+            recordBtn.innerHTML = `<i class="fa-solid fa-microphone"></i> ${elapsedTime}s`;
         }, 1000);
     } catch (error) {
         console.error("Erro ao acessar o microfone:", error);
@@ -98,7 +119,7 @@ function stopRecording() {
     if (mediaRecorder && mediaRecorder.state === "recording") {
         mediaRecorder.stop();
         clearInterval(recordingInterval); // Corrigido para garantir que pare corretamente
-        recordBtn.innerText = "🎤"; // Restaurar o ícone original
+        recordBtn.innerHTML = `<i class="fa-solid fa-microphone"></i>`; // Restaurar o ícone original
     }
 }
 
@@ -111,9 +132,7 @@ socket.on("audioMessage", (data) => {
 
 // Exibir áudio no chat
 function displayAudioMessage(data, isSender) {
-    const chatBox = document.getElementById("chat-box");
     const messageElement = document.createElement("div");
-
     messageElement.classList.add("message", isSender ? "sent" : "received");
 
     messageElement.innerHTML = `
@@ -125,7 +144,15 @@ function displayAudioMessage(data, isSender) {
             </audio>
         </div>
     `;
-    
+
     chatBox.appendChild(messageElement);
     chatBox.scrollTop = chatBox.scrollHeight;
 }
+
+// Alternar modo escuro
+darkModeToggle.addEventListener("click", () => {
+    document.body.classList.toggle("dark-mode");
+    const icon = darkModeToggle.querySelector("i");
+    icon.classList.toggle("fa-moon");
+    icon.classList.toggle("fa-sun");
+});
