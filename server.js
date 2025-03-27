@@ -12,8 +12,8 @@ io.on("connection", (socket) => {
     console.log("Novo usuário conectado:", socket.id);
 
     socket.on("chatMessage", (data) => {
-        // Enviar mensagem para todos EXCETO o próprio remetente
-        socket.broadcast.emit("chatMessage", data);
+        // Agora a mensagem será enviada para TODOS, inclusive o próprio remetente
+        io.emit("chatMessage", data);
     });
 
     socket.on("disconnect", () => {
