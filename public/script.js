@@ -1,15 +1,10 @@
 const socket = io();
 let username = localStorage.getItem("username") || "";
 
-// Definir o nome do usuário
-function setUsername() {
-    const input = document.getElementById("username");
-    if (input.value.trim()) {
-        username = input.value.trim();
-        localStorage.setItem("username", username);
-        document.querySelector(".name-container").style.display = "none";
-        document.querySelector(".chat-container").style.display = "block";
-    }
+// Perguntar nome se ainda não tiver
+if (!username) {
+    username = prompt("Digite seu nome:");
+    localStorage.setItem("username", username);
 }
 
 // Enviar mensagem
@@ -23,35 +18,17 @@ function sendMessage() {
     }
 }
 
-// Receber mensagens
+// Receber mensagens e exibir corretamente
 socket.on("chatMessage", (data) => {
     const chatBox = document.getElementById("chat-box");
     const messageElement = document.createElement("div");
-    messageElement.innerHTML = `<strong>${data.username}:</strong> ${data.message}`;
+
+    // Definir classe de estilo (mensagem enviada ou recebida)
+    messageElement.classList.add("message");
+    messageElement.classList.add(data.username === username ? "sent" : "received");
+
+    // Exibir nome do usuário e mensagem
+    messageElement.innerHTML = `<span class="username">${data.username}</span>${data.message}`;
     chatBox.appendChild(messageElement);
     chatBox.scrollTop = chatBox.scrollHeight;
 });
-// Salvar e carregar histórico
-function saveMessage(data) {
-    let chatHistory = JSON.parse(localStorage.getItem("chatHistory")) || [];
-    chatHistory.push(data);
-    localStorage.setItem("chatHistory", JSON.stringify(chatHistory));
-}
-
-function loadChatHistory() {
-    let chatHistory = JSON.parse(localStorage.getItem("chatHistory")) || [];
-    const chatBox = document.getElementById("chat-box");
-
-    chatHistory.forEach(data => {
-        const messageElement = document.createElement("div");
-        messageElement.innerHTML = `<strong>${data.username}:</strong> ${data.message}`;
-        chatBox.appendChild(messageElement);
-    });
-}
-
-document.addEventListener("DOMContentLoaded", loadChatHistory);
-
-socket.on("chatMessage", (data) => {
-    saveMessage(data);
-});
-

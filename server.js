@@ -16,6 +16,7 @@ io.on("connection", (socket) => {
         io.emit("chatMessage", { username: data.username, message: data.message });
     });
     
+    
 
     // Quando o usuário desconecta
     socket.on("disconnect", () => {

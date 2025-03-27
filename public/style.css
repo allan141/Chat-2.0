@@ -1,44 +1,110 @@
+/* Estilização geral */
 body {
     font-family: Arial, sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background: linear-gradient(135deg, #667eea, #764ba2);
+    background: #e5ddd5;
+    margin: 0;
 }
 
-.chat-container, .name-container {
-    width: 300px;
-    padding: 20px;
-    background: white;
+/* Contêiner principal */
+.chat-container {
+    width: 400px;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    text-align: center;
+    border-radius: 10px;
+    overflow: hidden;
 }
 
+/* Cabeçalho do chat */
+.chat-header {
+    background: #075e54;
+    color: white;
+    padding: 15px;
+    font-size: 18px;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* Caixa de mensagens */
 #chat-box {
-    height: 200px;
-    overflow-y: auto;
-    border: 1px solid #ccc;
+    flex: 1;
     padding: 10px;
-    margin-bottom: 10px;
-    background: #f9f9f9;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    background: #ece5dd;
+}
+
+/* Mensagem enviada */
+.message {
+    max-width: 75%;
+    padding: 8px 12px;
+    margin: 5px;
+    border-radius: 10px;
+    font-size: 14px;
+    word-wrap: break-word;
+}
+
+/* Mensagem do usuário (verde, alinhada à direita) */
+.message.sent {
+    background: #dcf8c6;
+    align-self: flex-end;
+}
+
+/* Mensagem de outros usuários (branca, alinhada à esquerda) */
+.message.received {
+    background: white;
+    align-self: flex-start;
+}
+
+/* Nome do usuário */
+.username {
+    font-weight: bold;
+    font-size: 12px;
+    color: #075e54;
+    display: block;
+    margin-bottom: 3px;
+}
+
+/* Caixa de entrada */
+.input-container {
+    display: flex;
+    padding: 10px;
+    background: #fff;
+    border-top: 1px solid #ddd;
 }
 
 input {
-    width: 80%;
+    flex: 1;
     padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    border: none;
+    border-radius: 20px;
+    outline: none;
+    font-size: 14px;
 }
 
 button {
-    padding: 10px 15px;
+    margin-left: 10px;
+    padding: 10px;
     cursor: pointer;
-    background: #28a745;
+    background: #25d366;
     color: white;
     border: none;
-    border-radius: 5px;
-    font-size: 14px;
+    border-radius: 50%;
+    font-size: 16px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+button:hover {
+    background: #1ebe57;
 }
