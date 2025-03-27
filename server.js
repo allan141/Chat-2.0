@@ -11,9 +11,14 @@ app.use(express.static("public"));
 io.on("connection", (socket) => {
     console.log("Novo usuário conectado:", socket.id);
 
+    // Mensagem de texto
     socket.on("chatMessage", (data) => {
-        // Agora a mensagem será enviada para TODOS, inclusive o próprio remetente
         io.emit("chatMessage", data);
+    });
+
+    // Mensagem de áudio
+    socket.on("audioMessage", (data) => {
+        io.emit("audioMessage", data);
     });
 
     socket.on("disconnect", () => {

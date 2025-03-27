@@ -143,43 +143,60 @@ button i {
     align-items: center;
 }
 
-/* Estilizando os botões */
+/* Estilização dos botões de envio e gravação */
+.input-container {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background: #fff;
+    border-top: 1px solid #ddd;
+}
+
+input {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 20px;
+    outline: none;
+    font-size: 14px;
+}
+
 button {
     margin-left: 10px;
     padding: 10px;
     cursor: pointer;
+    background: none;
     border: none;
-    border-radius: 50%;
-    font-size: 18px;
-    width: 40px;
-    height: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-/* Botão de envio */
-button[onclick="sendMessage()"] {
-    background: #25d366;
-    color: white;
+button img {
+    width: 24px;
+    height: 24px;
 }
 
-button[onclick="sendMessage()"]:hover {
+/* Botão de envio (seta) */
+#send-btn {
+    background: #25d366;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+}
+
+#send-btn:hover {
     background: #1ebe57;
 }
 
-/* Botão de áudio */
-#record-audio {
+/* Botão de gravação (microfone) */
+#record-btn {
     background: #075e54;
-    color: white;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
 }
 
-#record-audio:hover {
-    background: #064c48;
-}
-
-/* Mensagem de áudio */
-.message audio {
-    width: 200px;
-    margin-top: 5px;
+#record-btn:hover {
+    background: #064d45;
 }
