@@ -7,7 +7,7 @@ if (!username) {
     localStorage.setItem("username", username);
 }
 
-// Captura do botão de gravação e inicialização de variáveis
+// Captura dos botões e inicialização de variáveis
 const recordBtn = document.getElementById("record-btn");
 const sendBtn = document.getElementById("send-btn");
 let mediaRecorder;
@@ -71,6 +71,10 @@ recordBtn.addEventListener("mousedown", async () => {
 
             socket.emit("audioMessage", audioData);
             displayAudioMessage(audioData, true);
+
+            // **Zerar cronômetro e restaurar botão**
+            clearInterval(recordingInterval);
+            recordBtn.innerText = "🎤";
         };
 
         mediaRecorder.start();
@@ -93,7 +97,7 @@ recordBtn.addEventListener("mouseleave", stopRecording);
 function stopRecording() {
     if (mediaRecorder && mediaRecorder.state === "recording") {
         mediaRecorder.stop();
-        clearInterval(recordingInterval); // Para o cronômetro corretamente
+        clearInterval(recordingInterval); // Corrigido para garantir que pare corretamente
         recordBtn.innerText = "🎤"; // Restaurar o ícone original
     }
 }
