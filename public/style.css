@@ -79,13 +79,6 @@ body, html {
     margin-bottom: 5px;
 }
 
-/* Layout do áudio */
-.message audio {
-    width: 100%;
-    margin-top: 5px;
-    border-radius: 5px;
-}
-
 /* Caixa de entrada fixa no rodapé */
 .input-container {
     display: flex;
@@ -136,15 +129,6 @@ button:hover {
     background: #1ebe57;
 }
 
-/* Botão de gravação */
-#record-btn {
-    background: #075e54;
-}
-
-#record-btn:hover {
-    background: #054c44;
-}
-
 /* Responsividade */
 @media (max-width: 768px) {
     .chat-container {
@@ -163,4 +147,12 @@ button:hover {
     input {
         font-size: 16px;
     }
+}
+
+/* Estilo do indicador "está digitando..." */
+#typing-indicator {
+    font-size: 14px;
+    color: gray;
+    padding: 5px 15px;
+    height: 20px;
 }

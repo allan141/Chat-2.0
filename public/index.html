@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat Estilo WhatsApp</title>
+    <title>Chat Online</title>
     <link rel="stylesheet" href="style.css">
     <script defer src="/socket.io/socket.io.js"></script>
     <script defer src="script.js"></script>
@@ -11,33 +11,18 @@
 </head>
 <body>
     <div class="chat-container">
-        
-        <!-- Cabeçalho do Chat -->
-        <div class="chat-header">
-            <span>Chat Online</span>
-            <button id="dark-mode-toggle" title="Alternar Modo Escuro">
-                <i class="fa-solid fa-moon"></i>
-            </button>
-        </div>
-        
-        <!-- Área de Mensagens -->
+        <div class="chat-header">Chat Online</div>
         <div id="chat-box"></div>
-        
+
         <!-- Indicador de "Digitando..." -->
         <div id="typing-indicator"></div>
-        
-        <!-- Área de Entrada -->
+
         <div class="input-container">
-            <input type="text" id="message" placeholder="Digite uma mensagem..." oninput="notifyTyping()" />
-            
+            <input type="text" id="message" placeholder="Digite uma mensagem..." oninput="notifyTyping()" onblur="stopTyping()" />
+
             <!-- Botão de Envio -->
             <button id="send-btn" onclick="sendMessage()" title="Enviar mensagem">
                 <i class="fa-solid fa-paper-plane"></i>
-            </button>
-            
-            <!-- Botão de Gravação de Áudio -->
-            <button id="record-btn" title="Gravar áudio">
-                <i class="fa-solid fa-microphone"></i>
             </button>
         </div>
     </div>
