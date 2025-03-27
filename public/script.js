@@ -9,6 +9,7 @@ if (!username) {
 
 // Captura do botão de gravação e inicialização de variáveis
 const recordBtn = document.getElementById("record-btn");
+const sendBtn = document.getElementById("send-btn");
 let mediaRecorder;
 let audioChunks = [];
 let startTime;
@@ -20,8 +21,9 @@ function sendMessage() {
     const message = messageInput.value.trim();
     
     if (message) {
-        displayMessage({ username, message }, true);
-        socket.emit("chatMessage", { username, message });
+        const messageData = { username, message };
+        displayMessage(messageData, true);
+        socket.emit("chatMessage", messageData);
         messageInput.value = "";
     }
 }
@@ -38,10 +40,13 @@ function displayMessage(data, isSender) {
     const chatBox = document.getElementById("chat-box");
     const messageElement = document.createElement("div");
 
-    messageElement.classList.add("message");
-    messageElement.classList.add(isSender ? "sent" : "received");
+    messageElement.classList.add("message", isSender ? "sent" : "received");
 
-    messageElement.innerHTML = `<span class="username">${data.username}</span>${data.message}`;
+    messageElement.innerHTML = `
+        <span class="username">${data.username}</span>
+        <p>${data.message}</p>
+    `;
+    
     chatBox.appendChild(messageElement);
     chatBox.scrollTop = chatBox.scrollHeight;
 }
@@ -62,10 +67,10 @@ recordBtn.addEventListener("mousedown", async () => {
         mediaRecorder.onstop = () => {
             const audioBlob = new Blob(audioChunks, { type: "audio/webm" });
             const audioUrl = URL.createObjectURL(audioBlob);
-            socket.emit("audioMessage", { username, audioUrl });
+            const audioData = { username, audioUrl };
 
-            // Exibir áudio no chat
-            displayAudioMessage({ username, audioUrl }, true);
+            socket.emit("audioMessage", audioData);
+            displayAudioMessage(audioData, true);
         };
 
         mediaRecorder.start();
@@ -82,13 +87,16 @@ recordBtn.addEventListener("mousedown", async () => {
 });
 
 // Parar gravação quando soltar o botão
-recordBtn.addEventListener("mouseup", () => {
+recordBtn.addEventListener("mouseup", stopRecording);
+recordBtn.addEventListener("mouseleave", stopRecording);
+
+function stopRecording() {
     if (mediaRecorder && mediaRecorder.state === "recording") {
         mediaRecorder.stop();
-        clearInterval(recordingInterval);
+        clearInterval(recordingInterval); // Para o cronômetro corretamente
         recordBtn.innerText = "🎤"; // Restaurar o ícone original
     }
-});
+}
 
 // Receber áudio do servidor
 socket.on("audioMessage", (data) => {
@@ -102,15 +110,16 @@ function displayAudioMessage(data, isSender) {
     const chatBox = document.getElementById("chat-box");
     const messageElement = document.createElement("div");
 
-    messageElement.classList.add("message");
-    messageElement.classList.add(isSender ? "sent" : "received");
+    messageElement.classList.add("message", isSender ? "sent" : "received");
 
     messageElement.innerHTML = `
         <span class="username">${data.username}</span>
-        <audio controls>
-            <source src="${data.audioUrl}" type="audio/webm">
-            Seu navegador não suporta a reprodução de áudio.
-        </audio>
+        <div class="audio-message">
+            <audio controls>
+                <source src="${data.audioUrl}" type="audio/webm">
+                Seu navegador não suporta a reprodução de áudio.
+            </audio>
+        </div>
     `;
     
     chatBox.appendChild(messageElement);
