@@ -63,3 +63,12 @@ socket.on("typing", (user) => {
 socket.on("stopTyping", () => {
     typingIndicator.innerText = "";
 });
+
+// Registrar usuário no servidor
+socket.emit("registerUser", username);
+
+// Atualizar a lista de usuários conectados
+socket.on("userList", (users) => {
+    const userList = document.getElementById("online-users");
+    userList.innerHTML = users.length > 0 ? `Online: ${users.join(", ")}` : "Nenhum usuário online";
+});

@@ -8,15 +8,23 @@ const io = new Server(server);
 
 app.use(express.static("public"));
 
+const users = {}; // Armazena os usuários conectados
+
 io.on("connection", (socket) => {
     console.log("Novo usuário conectado:", socket.id);
 
-    // Mensagem de texto
+    // Registrar usuário ao entrar
+    socket.on("registerUser", (username) => {
+        users[socket.id] = username;
+        io.emit("userList", Object.values(users)); // Atualiza a lista para todos
+    });
+
+    // Enviar mensagem
     socket.on("chatMessage", (data) => {
         io.emit("chatMessage", data);
     });
 
-    // Notificação de "está digitando..."
+    // Notificar quando alguém está digitando
     socket.on("typing", (username) => {
         socket.broadcast.emit("typing", username);
     });
@@ -26,8 +34,11 @@ io.on("connection", (socket) => {
         socket.broadcast.emit("stopTyping");
     });
 
+    // Remover usuário ao desconectar
     socket.on("disconnect", () => {
-        console.log("Usuário desconectado:", socket.id);
+        console.log(`Usuário desconectado: ${socket.id}`);
+        delete users[socket.id];
+        io.emit("userList", Object.values(users)); // Atualiza a lista
     });
 });
 
