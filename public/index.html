@@ -24,6 +24,9 @@
                     <li onclick="changeUsername()">
                         <i class="fa-solid fa-user"></i> Alterar Nome
                     </li>
+                    <li onclick="showOnlineUsers()">
+                        <i class="fa-solid fa-users"></i> Usuários Online
+                    </li>
                     <li onclick="logout()">
                         <i class="fa-solid fa-right-from-bracket"></i> Sair do Chat
                     </li>
@@ -40,7 +43,7 @@
         <!-- Entrada de mensagem e botões -->
         <div class="input-container">
             <!-- Input invisível para envio de imagens -->
-            <input type="file" id="imageInput" accept="image/*" style="display: none;" />
+            <input type="file" id="imageInput" accept="image/*" style="display: none;" onchange="sendImage(event)" />
 
             <!-- Botão de Anexar -->
             <button id="attach-btn" onclick="document.getElementById('imageInput').click()" title="Anexar imagem">
