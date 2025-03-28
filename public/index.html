@@ -11,34 +11,49 @@
 </head>
 <body>
     <div class="chat-container">
-        <!-- Cabeçalho com ícone de menu -->
+        <!-- Cabeçalho -->
         <div class="chat-header">
             Chat Online
             <div class="menu-icon" onclick="toggleMenu()">
                 <i class="fa-solid fa-ellipsis-vertical"></i>
             </div>
+
+            <!-- Menu Dropdown -->
+            <div id="menu-dropdown" class="menu-dropdown">
+                <ul>
+                    <li onclick="changeUsername()">
+                        <i class="fa-solid fa-user"></i> Alterar Nome
+                    </li>
+                    <li onclick="logout()">
+                        <i class="fa-solid fa-right-from-bracket"></i> Sair do Chat
+                    </li>
+                </ul>
+            </div>
         </div>
 
+        <!-- Caixa de mensagens -->
         <div id="chat-box"></div>
 
         <!-- Indicador de "Digitando..." -->
         <div id="typing-indicator"></div>
 
+        <!-- Entrada de mensagem e botões -->
         <div class="input-container">
+            <!-- Input invisível para envio de imagens -->
+            <input type="file" id="imageInput" accept="image/*" style="display: none;" />
+
+            <!-- Botão de Anexar -->
+            <button id="attach-btn" onclick="document.getElementById('imageInput').click()" title="Anexar imagem">
+                <i class="fa-solid fa-paperclip"></i>
+            </button>
+
+            <!-- Campo de mensagem -->
             <input type="text" id="message" placeholder="Digite uma mensagem..." oninput="notifyTyping()" onblur="stopTyping()" />
 
             <!-- Botão de Envio -->
             <button id="send-btn" onclick="sendMessage()" title="Enviar mensagem">
                 <i class="fa-solid fa-paper-plane"></i>
             </button>
-        </div>
-    </div>
-
-    <!-- Janela Modal do Menu -->
-    <div id="menu-modal" class="modal">
-        <div class="modal-content">
-            <button onclick="changeUsername()">Alterar Nome</button>
-            <button onclick="logout()">Sair do Chat</button>
         </div>
     </div>
 </body>

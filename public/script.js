@@ -69,10 +69,10 @@ socket.on("stopTyping", () => {
     typingIndicator.innerText = "";
 });
 
-// Alternar a exibição do menu modal
+// Alternar a exibição do menu dropdown
 function toggleMenu() {
-    const modal = document.getElementById("menu-modal");
-    modal.style.display = modal.style.display === "block" ? "none" : "block";
+    const menu = document.getElementById("menu-dropdown");
+    menu.style.display = menu.style.display === "block" ? "none" : "block";
 }
 
 // Alterar nome de usuário
@@ -92,3 +92,13 @@ function logout() {
     alert("Você saiu do chat!");
     location.reload();
 }
+
+// Fechar menu se clicar fora
+document.addEventListener("click", (event) => {
+    const menu = document.getElementById("menu-dropdown");
+    const menuIcon = document.querySelector(".menu-icon");
+
+    if (menu.style.display === "block" && !menu.contains(event.target) && !menuIcon.contains(event.target)) {
+        menu.style.display = "none";
+    }
+});

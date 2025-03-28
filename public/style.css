@@ -197,3 +197,225 @@ button:hover {
 .modal-content button:hover {
     background: #1ebe57;
 }
+/* Cabeçalho do chat no padrão WhatsApp */
+.chat-header {
+    background: #008069;  /* Verde WhatsApp */
+    color: white;
+    padding: 15px;
+    font-size: 18px;
+    text-align: center;
+    font-weight: bold;
+    position: relative;
+}
+
+/* Ícone de menu no canto superior direito */
+.menu-icon {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+/* Estilização do menu dropdown igual ao WhatsApp */
+.menu-dropdown {
+    display: none;
+    position: absolute;
+    top: 50px;
+    right: 10px;
+    width: 180px;
+    background: white;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    z-index: 1000;
+    overflow: hidden;
+    animation: fadeIn 0.2s ease-in-out;
+}
+
+/* Lista do menu */
+.menu-dropdown ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Itens do menu */
+.menu-dropdown li {
+    padding: 12px 15px;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: background 0.2s;
+}
+
+.menu-dropdown li i {
+    font-size: 16px;
+    color: #008069;  /* Verde WhatsApp */
+}
+
+/* Hover no menu */
+.menu-dropdown li:hover {
+    background: #f5f5f5;
+}
+
+/* Animação de fade-in */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+/* Itens do menu */
+.menu-dropdown li {
+    padding: 12px 15px;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #111b21;  /* Cor do texto padrão do WhatsApp */
+    transition: background 0.2s;
+}
+
+/* Ícones do menu */
+.menu-dropdown li i {
+    font-size: 16px;
+    color: #3b4a54; /* Tom mais escuro, como no WhatsApp */
+}
+.menu {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    cursor: pointer;
+    color: white;
+    font-size: 20px;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 30px;
+    background: white;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    width: 150px;
+}
+
+.dropdown-menu button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background: white;
+    text-align: left;
+    cursor: pointer;
+    font-size: 14px;
+    color: black;
+}
+
+.dropdown-menu button:hover {
+    background: #ddd;
+}
+
+/* Estilo da Janela Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 300px;
+    text-align: center;
+    position: relative;
+}
+
+.modal h2 {
+    color: black;
+    margin-bottom: 10px;
+}
+
+.modal ul {
+    list-style: none;
+    padding: 0;
+}
+
+.modal ul li {
+    background: #f1f1f1;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    font-size: 14px;
+    color: #333;
+}
+
+.close {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    color: black;
+}
+.chat-image {
+    max-width: 250px;
+    border-radius: 8px;
+    margin-top: 5px;
+}
+.attachment-container {
+    position: relative;
+}
+
+#attachment-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.attachment-menu {
+    position: absolute;
+    bottom: 60px;
+    left: 10px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    display: none;
+}
+
+.attachment-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.attachment-menu ul li {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.attachment-menu ul li:hover {
+    background: #f0f0f0;
+}
+
+.hidden {
+    display: none !important;
+}
