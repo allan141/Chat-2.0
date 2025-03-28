@@ -419,3 +419,21 @@ button:hover {
 .hidden {
     display: none !important;
 }
+/* Esconde o menu por padrão */
+.menu-dropdown {
+    display: none;
+    position: absolute;
+    top: 50px;
+    right: 10px;
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+}
+
+/* Exibe o menu quando a classe 'show' é adicionada */
+.menu-dropdown.show {
+    display: block;
+}

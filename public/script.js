@@ -150,3 +150,12 @@ imageInput.addEventListener("change", sendImage);
 
 // Carregar o histórico de mensagens
 loadChatHistory();
+// Função para alternar a visibilidade do menu
+function toggleMenu() {
+    const menuDropdown = document.getElementById("menu-dropdown");
+    menuDropdown.classList.toggle("show");
+}
+
+// Adicionar a classe para exibir o menu
+const menuIcon = document.querySelector(".menu-icon");
+menuIcon.addEventListener("click", toggleMenu);
