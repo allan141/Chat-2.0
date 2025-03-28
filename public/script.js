@@ -68,3 +68,27 @@ socket.on("typing", (user) => {
 socket.on("stopTyping", () => {
     typingIndicator.innerText = "";
 });
+
+// Alternar a exibição do menu modal
+function toggleMenu() {
+    const modal = document.getElementById("menu-modal");
+    modal.style.display = modal.style.display === "block" ? "none" : "block";
+}
+
+// Alterar nome de usuário
+function changeUsername() {
+    let newUsername = prompt("Digite seu novo nome:");
+    if (newUsername) {
+        username = newUsername;
+        localStorage.setItem("username", username);
+        alert("Nome alterado para " + username);
+        toggleMenu();
+    }
+}
+
+// Sair do chat
+function logout() {
+    localStorage.removeItem("username");
+    alert("Você saiu do chat!");
+    location.reload();
+}

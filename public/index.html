@@ -11,7 +11,14 @@
 </head>
 <body>
     <div class="chat-container">
-        <div class="chat-header">Chat Online</div>
+        <!-- Cabeçalho com ícone de menu -->
+        <div class="chat-header">
+            Chat Online
+            <div class="menu-icon" onclick="toggleMenu()">
+                <i class="fa-solid fa-ellipsis-vertical"></i>
+            </div>
+        </div>
+
         <div id="chat-box"></div>
 
         <!-- Indicador de "Digitando..." -->
@@ -24,6 +31,14 @@
             <button id="send-btn" onclick="sendMessage()" title="Enviar mensagem">
                 <i class="fa-solid fa-paper-plane"></i>
             </button>
+        </div>
+    </div>
+
+    <!-- Janela Modal do Menu -->
+    <div id="menu-modal" class="modal">
+        <div class="modal-content">
+            <button onclick="changeUsername()">Alterar Nome</button>
+            <button onclick="logout()">Sair do Chat</button>
         </div>
     </div>
 </body>
