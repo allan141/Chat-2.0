@@ -1,7 +1,5 @@
-// Carregar o Socket.io do CDN para garantir compatibilidade
-const socket = io("https://chat-2-0-v3n2.onrender.com", {
-    transports: ["websocket", "polling", "flashsocket"]
-});
+// Conectar ao servidor WebSocket hospedado no Render
+const socket = io("https://chat-2-0-v3n2.onrender.com");
 
 let username = localStorage.getItem("username") || "";
 
@@ -21,10 +19,6 @@ const chatBox = document.getElementById("chat-box");
 const typingIndicator = document.getElementById("typing-indicator");
 
 // Enviar mensagem de texto
-sendBtn.addEventListener("click", sendMessage);
-messageInput.addEventListener("keypress", notifyTyping);
-messageInput.addEventListener("blur", stopTyping);
-
 function sendMessage() {
     const message = messageInput.value.trim();
     
@@ -47,6 +41,7 @@ socket.on("chatMessage", (data) => {
 // Exibir mensagens corretamente
 function displayMessage(data, isSender) {
     const messageElement = document.createElement("div");
+
     messageElement.classList.add("message", isSender ? "sent" : "received");
     messageElement.innerHTML = `<span class="username">${data.username}</span><p>${data.message}</p>`;
     
@@ -74,10 +69,10 @@ socket.on("stopTyping", () => {
     typingIndicator.innerText = "";
 });
 
-// Alternar a exibição do menu dropdown
+// Alternar a exibição do menu modal
 function toggleMenu() {
-    const menu = document.getElementById("menu-dropdown");
-    menu.style.display = menu.style.display === "block" ? "none" : "block";
+    const modal = document.getElementById("menu-modal");
+    modal.style.display = modal.style.display === "block" ? "none" : "block";
 }
 
 // Alterar nome de usuário
@@ -97,12 +92,3 @@ function logout() {
     alert("Você saiu do chat!");
     location.reload();
 }
-
-// Fechar menu se clicar fora
-document.addEventListener("click", (event) => {
-    const menu = document.getElementById("menu-dropdown");
-    const menuIcon = document.querySelector(".menu-icon");
-    if (menu && menuIcon && menu.style.display === "block" && !menu.contains(event.target) && !menuIcon.contains(event.target)) {
-        menu.style.display = "none";
-    }
-});
