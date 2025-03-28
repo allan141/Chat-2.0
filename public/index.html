@@ -13,18 +13,64 @@
     <div class="chat-container">
         <!-- Cabeçalho com ícone de menu -->
         <div class="chat-header">
+<<<<<<< Updated upstream
             Chat Online
             <div class="menu-icon" onclick="toggleMenu()">
                 <i class="fa-solid fa-ellipsis-vertical"></i>
             </div>
         </div>
 
+=======
+            <div class="chat-title">Chat Online</div>
+        </div>
+        
+
+        <!-- Menu Dropdown -->
+        <div id="menu-dropdown" class="menu-dropdown">
+            <ul>
+                <li onclick="changeUsername()">
+                    <i class="fa-solid fa-user"></i> Alterar Nome
+                </li>
+                <li onclick="logout()">
+                    <i class="fa-solid fa-right-from-bracket"></i> Sair do Chat
+                </li>
+            </ul>
+        </div>
+        
+        <!-- Menu de Três Pontos -->
+        <div class="menu-icon" onclick="toggleMenu()">
+            <i class="fa-solid fa-ellipsis-vertical"></i>
+            </div>
+            
+        <!-- Caixa de mensagens -->
+>>>>>>> Stashed changes
         <div id="chat-box"></div>
 
         <!-- Indicador de "Digitando..." -->
         <div id="typing-indicator"></div>
 
         <div class="input-container">
+<<<<<<< Updated upstream
+=======
+            <div class="left-icons">
+
+                <!-- Botão de Anexar -->
+                <button id="attach-btn" onclick="document.getElementById('imageInput').click()" title="Anexar imagem">
+                    <i class="fa-solid fa-paperclip"></i>
+                </button>
+                
+                <!-- Botão de Chamada -->
+                <button id="call-btn" title="Ligar">📞</button>
+                <button id="hangup-btn" class="hidden" title="Encerrar chamada">❌</button>
+                
+                
+            </div>
+            
+            <!-- Input invisível para envio de imagens -->
+            <input type="file" id="imageInput" accept="image/*" style="display: none;" />
+
+            <!-- Campo de mensagem -->
+>>>>>>> Stashed changes
             <input type="text" id="message" placeholder="Digite uma mensagem..." oninput="notifyTyping()" onblur="stopTyping()" />
 
             <!-- Botão de Envio -->
