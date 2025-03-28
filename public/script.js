@@ -1,4 +1,9 @@
 const socket = io();
+
+// Conectar ao servidor WebSocket hospedado no Render
+websocket = new WebSocket("ws://allan141.github.io/")
+websocket.onmenssage = processMessage
+
 let username = localStorage.getItem("username") || "";
 
 // Perguntar o nome se ainda não tiver
