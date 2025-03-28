@@ -1,107 +1,52 @@
+
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
 // Conectar ao servidor WebSocket hospedado no Render
-const socket = io("https://chat-2-0-v3n2.onrender.com");
-
-let username = localStorage.getItem("username") || "";
-
-// Perguntar o nome se ainda não tiver
-if (!username) {
-    username = prompt("Digite seu nome:");
-    localStorage.setItem("username", username);
-}
-
-// Enviar o nome do usuário para o servidor
-socket.emit("registerUser", username);
-
-// Captura de elementos
-const messageInput = document.getElementById("message");
-const sendBtn = document.getElementById("send-btn");
-const chatBox = document.getElementById("chat-box");
-const typingIndicator = document.getElementById("typing-indicator");
-
-// Enviar mensagem de texto
-function sendMessage() {
-    const message = messageInput.value.trim();
-    
-    if (message) {
-        const messageData = { username, message };
-        displayMessage(messageData, true);
-        socket.emit("chatMessage", messageData);
-        messageInput.value = "";
-        stopTyping();
-    }
-}
-
-// Receber mensagens do servidor
-socket.on("chatMessage", (data) => {
-    if (data.username !== username) {
-        displayMessage(data, false);
-    }
-});
-
-// Exibir mensagens corretamente
-function displayMessage(data, isSender) {
-    const messageElement = document.createElement("div");
-
-    messageElement.classList.add("message", isSender ? "sent" : "received");
-    messageElement.innerHTML = `<span class="username">${data.username}</span><p>${data.message}</p>`;
-    
-    chatBox.appendChild(messageElement);
-    chatBox.scrollTop = chatBox.scrollHeight;
-}
-
-// Notificar que o usuário está digitando
-function notifyTyping() {
-    socket.emit("typing", username);
-}
-
-// Parar de mostrar "está digitando..." após um tempo
-function stopTyping() {
-    socket.emit("stopTyping");
-}
-
-// Receber evento de digitação do servidor
-socket.on("typing", (user) => {
-    typingIndicator.innerText = `${user} está digitando...`;
-});
 
 // Remover "está digitando..." quando o usuário parar
 socket.on("stopTyping", () => {
     typingIndicator.innerText = "";
 });
 
-// Alternar a exibição do menu dropdown
-function toggleMenu() {
-    const menu = document.getElementById("menu-dropdown");
-    menu.style.display = menu.style.display === "block" ? "none" : "block";
-}
-
-// Alterar nome de usuário
-function changeUsername() {
-    let newUsername = prompt("Digite seu novo nome:");
-    if (newUsername) {
-        username = newUsername;
-        localStorage.setItem("username", username);
-        alert("Nome alterado para " + username);
-        toggleMenu();
-    }
-}
-
-// Sair do chat
-function logout() {
-    localStorage.removeItem("username");
-    alert("Você saiu do chat!");
-    location.reload();
-}
-
-// Fechar menu se clicar fora
-document.addEventListener("click", (event) => {
-    const menu = document.getElementById("menu-dropdown");
-    const menuIcon = document.querySelector(".menu-icon");
-
-    if (menu.style.display === "block" && !menu.contains(event.target) && !menuIcon.contains(event.target)) {
-        menu.style.display = "none";
-    }
-});
 // Evento para capturar a imagem quando o usuário seleciona um arquivo
 imageInput.addEventListener("change", function () {
     const file = this.files[0];
@@ -136,4 +81,10 @@ function displayImage(data, isSender) {
     `;
     chatBox.appendChild(messageElement);
     chatBox.scrollTop = chatBox.scrollHeight;
+}
+document.getElementById("call-btn").addEventListener("click", startCall);
+
+function startCall() {
+    alert("Iniciando chamada...");
+    // Aqui entra o código do WebRTC para iniciar a chamada
 }
