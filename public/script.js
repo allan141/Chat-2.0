@@ -19,6 +19,25 @@ const chatBox = document.getElementById("chat-box");
 const typingIndicator = document.getElementById("typing-indicator");
 const imageInput = document.getElementById("image-input");
 
+// Função para salvar as mensagens no localStorage
+function saveMessages(messages) {
+    localStorage.setItem("messages", JSON.stringify(messages));
+}
+
+// Função para carregar as mensagens do localStorage
+function loadMessages() {
+    const savedMessages = localStorage.getItem("messages");
+    return savedMessages ? JSON.parse(savedMessages) : [];
+}
+
+// Carregar e exibir as mensagens salvas ao carregar a página
+function loadChatHistory() {
+    const messages = loadMessages();
+    messages.forEach((messageData) => {
+        displayMessage(messageData, false);
+    });
+}
+
 // Enviar mensagem de texto
 function sendMessage() {
     const message = messageInput.value.trim();
@@ -27,6 +46,12 @@ function sendMessage() {
         const messageData = { username, message, time: new Date().toLocaleTimeString() };
         displayMessage(messageData, true);
         socket.emit("chatMessage", messageData);
+        
+        // Salvar a nova mensagem no localStorage
+        const messages = loadMessages();
+        messages.push(messageData);
+        saveMessages(messages);
+        
         messageInput.value = "";
         stopTyping();
     } else {
@@ -42,6 +67,12 @@ function sendImage(event) {
         reader.onload = function () {
             const imageData = { username, image: reader.result, time: new Date().toLocaleTimeString() };
             displayImage(imageData, true);
+            
+            // Salvar a imagem no localStorage
+            const messages = loadMessages();
+            messages.push(imageData);
+            saveMessages(messages);
+            
             socket.emit("sendImage", imageData);
         };
         reader.readAsDataURL(file);
@@ -102,7 +133,20 @@ socket.on("stopTyping", () => {
     typingIndicator.innerText = "";
 });
 
+// Função para apagar a conversa
+function clearChat() {
+    localStorage.removeItem("messages"); // Apagar as mensagens do localStorage
+    chatBox.innerHTML = ""; // Limpar a caixa de chat na interface
+}
+
+// Evento para apagar conversa
+const clearChatBtn = document.getElementById("clear-chat-btn");
+clearChatBtn.addEventListener("click", clearChat);
+
 // Eventos
-sendBtn.addEventListener("click", sendMessage); // Correção aqui, chamando sendMessage ao clicar no botão
-messageInput.addEventListener("input", notifyTyping); // Notificar digitação
-imageInput.addEventListener("change", sendImage); // Enviar imagem ao selecionar
+sendBtn.addEventListener("click", sendMessage);
+messageInput.addEventListener("input", notifyTyping);
+imageInput.addEventListener("change", sendImage);
+
+// Carregar o histórico de mensagens
+loadChatHistory();
