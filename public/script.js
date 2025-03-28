@@ -12,7 +12,8 @@ if (!username) {
 // Enviar o nome do usuário para o servidor
 socket.emit("registerUser", username);
 
-// Captura de elementos\const messageInput = document.getElementById("message");
+// Captura de elementos
+const messageInput = document.getElementById("message");
 const sendBtn = document.getElementById("send-btn");
 const chatBox = document.getElementById("chat-box");
 const typingIndicator = document.getElementById("typing-indicator");
@@ -28,6 +29,8 @@ function sendMessage() {
         socket.emit("chatMessage", messageData);
         messageInput.value = "";
         stopTyping();
+    } else {
+        console.log("⚠️ Mensagem vazia, não enviada.");
     }
 }
 
@@ -99,6 +102,7 @@ socket.on("stopTyping", () => {
     typingIndicator.innerText = "";
 });
 
-// Eventos\sendBtn.addEventListener("click", sendMessage);
-messageInput.addEventListener("input", notifyTyping);
-imageInput.addEventListener("change", sendImage);
+// Eventos
+sendBtn.addEventListener("click", sendMessage); // Correção aqui, chamando sendMessage ao clicar no botão
+messageInput.addEventListener("input", notifyTyping); // Notificar digitação
+imageInput.addEventListener("change", sendImage); // Enviar imagem ao selecionar
