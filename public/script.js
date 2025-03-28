@@ -1,5 +1,7 @@
-// Conectar ao servidor WebSocket hospedado no Render
-const socket = io("https://chat-2-0-v3n2.onrender.com");
+// Carregar o Socket.io do CDN para garantir compatibilidade
+const socket = io("https://chat-2-0-v3n2.onrender.com", {
+    transports: ["websocket", "polling", "flashsocket"]
+});
 
 let username = localStorage.getItem("username") || "";
 
@@ -19,6 +21,10 @@ const chatBox = document.getElementById("chat-box");
 const typingIndicator = document.getElementById("typing-indicator");
 
 // Enviar mensagem de texto
+sendBtn.addEventListener("click", sendMessage);
+messageInput.addEventListener("keypress", notifyTyping);
+messageInput.addEventListener("blur", stopTyping);
+
 function sendMessage() {
     const message = messageInput.value.trim();
     
@@ -41,7 +47,6 @@ socket.on("chatMessage", (data) => {
 // Exibir mensagens corretamente
 function displayMessage(data, isSender) {
     const messageElement = document.createElement("div");
-
     messageElement.classList.add("message", isSender ? "sent" : "received");
     messageElement.innerHTML = `<span class="username">${data.username}</span><p>${data.message}</p>`;
     
@@ -97,8 +102,7 @@ function logout() {
 document.addEventListener("click", (event) => {
     const menu = document.getElementById("menu-dropdown");
     const menuIcon = document.querySelector(".menu-icon");
-
-    if (menu.style.display === "block" && !menu.contains(event.target) && !menuIcon.contains(event.target)) {
+    if (menu && menuIcon && menu.style.display === "block" && !menu.contains(event.target) && !menuIcon.contains(event.target)) {
         menu.style.display = "none";
     }
 });
