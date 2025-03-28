@@ -1,5 +1,6 @@
 // Conectar ao servidor WebSocket hospedado no Render
-const socket = io();
+const socket = io("https://chat-2-0-v3n2.onrender.com");
+
 let username = localStorage.getItem("username") || "";
 
 // Perguntar o nome se ainda não tiver
@@ -8,13 +9,14 @@ if (!username) {
     localStorage.setItem("username", username);
 }
 
+// Enviar o nome do usuário para o servidor
+socket.emit("registerUser", username);
+
 // Captura de elementos
 const messageInput = document.getElementById("message");
 const sendBtn = document.getElementById("send-btn");
 const chatBox = document.getElementById("chat-box");
 const typingIndicator = document.getElementById("typing-indicator");
-const imageInput = document.getElementById("image-input");
-const callBtn = document.getElementById("call-btn");
 
 // Enviar mensagem de texto
 function sendMessage() {
@@ -29,9 +31,6 @@ function sendMessage() {
     }
 }
 
-sendBtn.addEventListener("click", sendMessage);
-messageInput.addEventListener("keypress", notifyTyping);
-
 // Receber mensagens do servidor
 socket.on("chatMessage", (data) => {
     if (data.username !== username) {
@@ -42,8 +41,10 @@ socket.on("chatMessage", (data) => {
 // Exibir mensagens corretamente
 function displayMessage(data, isSender) {
     const messageElement = document.createElement("div");
+
     messageElement.classList.add("message", isSender ? "sent" : "received");
     messageElement.innerHTML = `<span class="username">${data.username}</span><p>${data.message}</p>`;
+    
     chatBox.appendChild(messageElement);
     chatBox.scrollTop = chatBox.scrollHeight;
 }
@@ -58,58 +59,46 @@ function stopTyping() {
     socket.emit("stopTyping");
 }
 
-let typingTimeout;
+// Receber evento de digitação do servidor
 socket.on("typing", (user) => {
     typingIndicator.innerText = `${user} está digitando...`;
-    clearTimeout(typingTimeout);
-    typingTimeout = setTimeout(() => {
-        typingIndicator.innerText = "";
-    }, 3000);
 });
 
+// Remover "está digitando..." quando o usuário parar
 socket.on("stopTyping", () => {
     typingIndicator.innerText = "";
 });
 
-// Capturar a imagem quando o usuário seleciona um arquivo
-imageInput.addEventListener("change", function () {
-    const file = this.files[0];
-    if (file) {
-        const reader = new FileReader();
-        reader.onload = function (e) {
-            const imageData = {
-                username: username,
-                image: e.target.result, // Converte a imagem para base64
-            };
-            displayImage(imageData, true); // Exibe no chat do próprio usuário
-            socket.emit("sendImage", imageData); // Envia para o servidor
-        };
-        reader.readAsDataURL(file);
-    }
-});
-
-// Receber imagens do servidor
-socket.on("sendImage", (data) => {
-    if (data.username !== username) {
-        displayImage(data, false); // Exibe a imagem recebida no chat
-    }
-});
-
-// Exibir a imagem no chat
-function displayImage(data, isSender) {
-    const messageElement = document.createElement("div");
-    messageElement.classList.add("message", isSender ? "sent" : "received");
-    messageElement.innerHTML = `
-        <span class="username">${data.username}</span>
-        <img src="${data.image}" class="chat-image" alt="Imagem enviada"/>
-    `;
-    chatBox.appendChild(messageElement);
-    chatBox.scrollTop = chatBox.scrollHeight;
+// Alternar a exibição do menu dropdown
+function toggleMenu() {
+    const menu = document.getElementById("menu-dropdown");
+    menu.style.display = menu.style.display === "block" ? "none" : "block";
 }
 
-// Iniciar chamada
-callBtn.addEventListener("click", startCall);
-function startCall() {
-    alert("Iniciando chamada...");
-    // Aqui entra o código do WebRTC para iniciar a chamada
+// Alterar nome de usuário
+function changeUsername() {
+    let newUsername = prompt("Digite seu novo nome:");
+    if (newUsername) {
+        username = newUsername;
+        localStorage.setItem("username", username);
+        alert("Nome alterado para " + username);
+        toggleMenu();
+    }
 }
+
+// Sair do chat
+function logout() {
+    localStorage.removeItem("username");
+    alert("Você saiu do chat!");
+    location.reload();
+}
+
+// Fechar menu se clicar fora
+document.addEventListener("click", (event) => {
+    const menu = document.getElementById("menu-dropdown");
+    const menuIcon = document.querySelector(".menu-icon");
+
+    if (menu.style.display === "block" && !menu.contains(event.target) && !menuIcon.contains(event.target)) {
+        menu.style.display = "none";
+    }
+});

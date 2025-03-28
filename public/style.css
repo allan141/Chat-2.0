@@ -30,7 +30,7 @@ body, html {
 /* Cabeçalho do chat */
 .chat-header {
     background: #075e54;
-    color: #075e54;
+    color: white;
     padding: 15px;
     font-size: 18px;
     text-align: center;
@@ -200,7 +200,7 @@ button:hover {
 /* Cabeçalho do chat no padrão WhatsApp */
 .chat-header {
     background: #008069;  /* Verde WhatsApp */
-    color: #075e54;
+    color: white;
     padding: 15px;
     font-size: 18px;
     text-align: center;
@@ -418,27 +418,4 @@ button:hover {
 
 .hidden {
     display: none !important;
-}
-.chat-header {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    padding: 10px;
-    background-color: #075E54; /* Cor do WhatsApp */
-}
-
-.chat-header button {
-    background: none;
-    border: none;
-    font-size: 20px;
-    margin-left: 10px;
-    cursor: pointer;
-    color: white;
-}
-
-.menu-icon {
-    font-size: 20px;
-    cursor: pointer;
-    margin-left: 10px;
-    color: white;
 }

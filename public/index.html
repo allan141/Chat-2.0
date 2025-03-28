@@ -10,29 +10,26 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <audio id="remote-audio" autoplay></audio>
-
     <div class="chat-container">
+        <!-- Cabeçalho -->
         <div class="chat-header">
-            <div class="chat-title">Chat Online</div>
-        </div>
-        <!-- Menu de Três Pontos -->
-        <div class="menu-icon" onclick="toggleMenu()">
-            <i class="fa-solid fa-ellipsis-vertical"></i>
-        </div>
+            Chat Online
+            <div class="menu-icon" onclick="toggleMenu()">
+                <i class="fa-solid fa-ellipsis-vertical"></i>
+            </div>
 
-        <!-- Menu Dropdown -->
-        <div id="menu-dropdown" class="menu-dropdown">
-            <ul>
-                <li onclick="changeUsername()">
-                    <i class="fa-solid fa-user"></i> Alterar Nome
-                </li>
-                <li onclick="logout()">
-                    <i class="fa-solid fa-right-from-bracket"></i> Sair do Chat
-                </li>
-            </ul>
+            <!-- Menu Dropdown -->
+            <div id="menu-dropdown" class="menu-dropdown">
+                <ul>
+                    <li onclick="changeUsername()">
+                        <i class="fa-solid fa-user"></i> Alterar Nome
+                    </li>
+                    <li onclick="logout()">
+                        <i class="fa-solid fa-right-from-bracket"></i> Sair do Chat
+                    </li>
+                </ul>
+            </div>
         </div>
-        
 
         <!-- Caixa de mensagens -->
         <div id="chat-box"></div>
@@ -42,25 +39,17 @@
 
         <!-- Entrada de mensagem e botões -->
         <div class="input-container">
-            <div class="left-icons">
-                <!-- Botão de Anexar -->
-                <button id="attach-btn" onclick="document.getElementById('imageInput').click()" title="Anexar imagem">
-                    <i class="fa-solid fa-paperclip"></i>
-                </button>
-                
-                <!-- Botão de Chamada -->
-                <button id="call-btn" title="Ligar">📞</button>
-                <button id="hangup-btn" class="hidden" title="Encerrar chamada">❌</button>
-                
-                
-            </div>
-            
             <!-- Input invisível para envio de imagens -->
             <input type="file" id="imageInput" accept="image/*" style="display: none;" />
 
+            <!-- Botão de Anexar -->
+            <button id="attach-btn" onclick="document.getElementById('imageInput').click()" title="Anexar imagem">
+                <i class="fa-solid fa-paperclip"></i>
+            </button>
+
             <!-- Campo de mensagem -->
             <input type="text" id="message" placeholder="Digite uma mensagem..." oninput="notifyTyping()" onblur="stopTyping()" />
-            
+
             <!-- Botão de Envio -->
             <button id="send-btn" onclick="sendMessage()" title="Enviar mensagem">
                 <i class="fa-solid fa-paper-plane"></i>
