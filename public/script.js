@@ -1,8 +1,5 @@
-const socket = io();
-
 // Conectar ao servidor WebSocket hospedado no Render
-websocket = new WebSocket("ws://chat-2-0-v3n2.onrender.com")
-websocket.onmenssage = processMessage
+const socket = io("https://chat-2-0-v3n2.onrender.com");
 
 let username = localStorage.getItem("username") || "";
 
@@ -11,6 +8,9 @@ if (!username) {
     username = prompt("Digite seu nome:");
     localStorage.setItem("username", username);
 }
+
+// Enviar o nome do usuário para o servidor
+socket.emit("registerUser", username);
 
 // Captura de elementos
 const messageInput = document.getElementById("message");
@@ -67,13 +67,4 @@ socket.on("typing", (user) => {
 // Remover "está digitando..." quando o usuário parar
 socket.on("stopTyping", () => {
     typingIndicator.innerText = "";
-});
-
-// Registrar usuário no servidor
-socket.emit("registerUser", username);
-
-// Atualizar a lista de usuários conectados
-socket.on("userList", (users) => {
-    const userList = document.getElementById("online-users");
-    userList.innerHTML = users.length > 0 ? `Online: ${users.join(", ")}` : "Nenhum usuário online";
 });
