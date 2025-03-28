@@ -1,7 +1,7 @@
 const socket = io();
 
 // Conectar ao servidor WebSocket hospedado no Render
-websocket = new WebSocket("ws://allan141.github.io/")
+websocket = new WebSocket("ws://chat-2-0-v3n2.onrender.com")
 websocket.onmenssage = processMessage
 
 let username = localStorage.getItem("username") || "";
