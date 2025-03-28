@@ -12,22 +12,36 @@ if (!username) {
 // Enviar o nome do usuário para o servidor
 socket.emit("registerUser", username);
 
-// Captura de elementos
-const messageInput = document.getElementById("message");
+// Captura de elementos\const messageInput = document.getElementById("message");
 const sendBtn = document.getElementById("send-btn");
 const chatBox = document.getElementById("chat-box");
 const typingIndicator = document.getElementById("typing-indicator");
+const imageInput = document.getElementById("image-input");
 
 // Enviar mensagem de texto
 function sendMessage() {
     const message = messageInput.value.trim();
     
     if (message) {
-        const messageData = { username, message };
+        const messageData = { username, message, time: new Date().toLocaleTimeString() };
         displayMessage(messageData, true);
         socket.emit("chatMessage", messageData);
         messageInput.value = "";
         stopTyping();
+    }
+}
+
+// Enviar imagem
+function sendImage(event) {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function () {
+            const imageData = { username, image: reader.result, time: new Date().toLocaleTimeString() };
+            displayImage(imageData, true);
+            socket.emit("sendImage", imageData);
+        };
+        reader.readAsDataURL(file);
     }
 }
 
@@ -38,14 +52,30 @@ socket.on("chatMessage", (data) => {
     }
 });
 
+// Receber imagens do servidor
+socket.on("receiveImage", (data) => {
+    if (data.username !== username) {
+        displayImage(data, false);
+    }
+});
+
 // Exibir mensagens corretamente
 function displayMessage(data, isSender) {
     const messageElement = document.createElement("div");
-
     messageElement.classList.add("message", isSender ? "sent" : "received");
-    messageElement.innerHTML = `<span class="username">${data.username}</span><p>${data.message}</p>`;
+    messageElement.innerHTML = `<span class="username">${data.username}</span><p>${data.message}</p><span class="time">${data.time}</span>`;
     
     chatBox.appendChild(messageElement);
+    chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+// Exibir imagens corretamente
+function displayImage(data, isSender) {
+    const imageElement = document.createElement("div");
+    imageElement.classList.add("message", isSender ? "sent" : "received");
+    imageElement.innerHTML = `<span class="username">${data.username}</span><img src="${data.image}" class="chat-image" /><span class="time">${data.time}</span>`;
+    
+    chatBox.appendChild(imageElement);
     chatBox.scrollTop = chatBox.scrollHeight;
 }
 
@@ -68,3 +98,7 @@ socket.on("typing", (user) => {
 socket.on("stopTyping", () => {
     typingIndicator.innerText = "";
 });
+
+// Eventos\sendBtn.addEventListener("click", sendMessage);
+messageInput.addEventListener("input", notifyTyping);
+imageInput.addEventListener("change", sendImage);
