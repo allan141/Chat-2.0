@@ -24,12 +24,12 @@
                     <li onclick="changeUsername()">
                         <i class="fa-solid fa-user"></i> Alterar Nome
                     </li>
-                    <li onclick="showOnlineUsers()">
-                        <i class="fa-solid fa-users"></i> Usuários Online
-                    </li>
                     <li onclick="logout()">
                         <i class="fa-solid fa-right-from-bracket"></i> Sair do Chat
                     </li>
+                    <li onclick="clearChat()">
+                        <i class="fa-solid fa-trash"></i> Apagar Conversa
+                   </li>
                 </ul>
             </div>
         </div>
@@ -57,20 +57,6 @@
             <button id="send-btn" onclick="sendMessage()" title="Enviar mensagem">
                 <i class="fa-solid fa-paper-plane"></i>
             </button>
-            <!-- Menu Dropdown -->
-        <div id="menu-dropdown" class="menu-dropdown">
-        <ul>
-            <li onclick="changeUsername()">
-                 <i class="fa-solid fa-user"></i> Alterar Nome
-                </li>
-              <li onclick="logout()">
-                 <i class="fa-solid fa-right-from-bracket"></i> Sair do Chat
-             </li>
-                <li onclick="clearChat()">
-                  <i class="fa-solid fa-trash"></i> Apagar Conversa
-             </li>
-            </ul>
-        </div>
         </div>
     </div>
 </body>
