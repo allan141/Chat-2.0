@@ -150,45 +150,9 @@ imageInput.addEventListener("change", sendImage);
 
 // Carregar o histórico de mensagens
 loadChatHistory();
+
 // Função para alternar a visibilidade do menu
 function toggleMenu() {
     const menuDropdown = document.getElementById("menu-dropdown");
     menuDropdown.classList.toggle("show");
-}
-
-// Adicionar a classe para exibir o menu
-const menuIcon = document.querySelector(".menu-icon");
-menuIcon.addEventListener("click", toggleMenu);
-
-// Função para abrir a janela de alteração de nome
-function changeUsername() {
-    const modal = document.getElementById("change-username-modal");
-    modal.style.display = "block"; // Exibe o modal
-}
-
-// Função para fechar o modal
-function closeModal() {
-    const modal = document.getElementById("change-username-modal");
-    modal.style.display = "none"; // Fecha o modal
-}
-
-// Função para salvar o novo nome de usuário
-function saveNewUsername() {
-    const newUsername = document.getElementById("new-username").value.trim();
-
-    if (newUsername) {
-        username = newUsername; // Atualiza o nome do usuário
-        localStorage.setItem("username", username); // Salva o novo nome no localStorage
-        
-        // Envia o novo nome para o servidor
-        socket.emit("registerUser", username);
-
-        // Fecha o modal
-        closeModal();
-
-        // Atualiza o nome na interface (se necessário)
-        alert("Nome alterado com sucesso!");
-    } else {
-        alert("Por favor, insira um nome válido.");
-    }
 }

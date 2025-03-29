@@ -18,28 +18,16 @@
                 <i class="fa-solid fa-ellipsis-vertical"></i>
             </div>
 
-           <!-- Menu Dropdown -->
-        <div id="menu-dropdown" class="menu-dropdown">
-            <ul>
-                <li onclick="changeUsername()">
-                    <i class="fa-solid fa-user"></i> Alterar Nome
-                </li>
-                <li onclick="logout()">
-                    <i class="fa-solid fa-right-from-bracket"></i> Sair do Chat
-                </li>
-                <li onclick="clearChat()">
-                    <i class="fa-solid fa-trash"></i> Apagar Conversa
-                </li>
-            </ul>
-        </div>
-        </div>
-        <!-- Janela Modal de Alteração de Nome -->
-        <div id="change-username-modal" class="modal">
-            <div class="modal-content">
-                <h3>Alterar Nome de Usuário</h3>
-                <input type="text" id="new-username" placeholder="Digite o novo nome" />
-                <button onclick="saveNewUsername()">Salvar</button>
-                <button onclick="closeModal()">Cancelar</button>
+            <!-- Menu Dropdown -->
+            <div id="menu-dropdown" class="menu-dropdown">
+                <ul>
+                    <li onclick="logout()">
+                        <i class="fa-solid fa-right-from-bracket"></i> Sair do Chat
+                    </li>
+                    <li onclick="clearChat()">
+                        <i class="fa-solid fa-trash"></i> Apagar Conversa
+                    </li>
+                </ul>
             </div>
         </div>
 
@@ -51,18 +39,13 @@
 
         <!-- Entrada de mensagem e botões -->
         <div class="input-container">
-            <!-- Input invisível para envio de imagens -->
             <input type="file" id="imageInput" accept="image/*" style="display: none;" onchange="sendImage(event)" />
-
-            <!-- Botão de Anexar -->
             <button id="attach-btn" onclick="document.getElementById('imageInput').click()" title="Anexar imagem">
                 <i class="fa-solid fa-paperclip"></i>
             </button>
 
-            <!-- Campo de mensagem -->
             <input type="text" id="message" placeholder="Digite uma mensagem..." oninput="notifyTyping()" onblur="stopTyping()" />
 
-            <!-- Botão de Envio -->
             <button id="send-btn" onclick="sendMessage()" title="Enviar mensagem">
                 <i class="fa-solid fa-paper-plane"></i>
             </button>
