@@ -437,3 +437,34 @@ button:hover {
 .menu-dropdown.show {
     display: block;
 }
+/* Estilos para a janela modal */
+.modal {
+    display: none; /* Inicialmente invisível */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4); /* Fundo semitransparente */
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    width: 300px;
+    margin: 100px auto;
+    text-align: center;
+}
+
+.modal input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.modal button {
+    padding: 10px 20px;
+    margin: 5px;
+}
